@@ -26,13 +26,13 @@
     </form>
     <table class="striped">
       <thead>
-        <tr><th>Date</th><th>Rating</th></tr>
+        <tr><th>Date</th><th>Mood</th></tr>
       </thead>
       <tbody>
         {% for wearing in style.wearing_set.all %}
           <tr>
             <td>{{wearing.date}}</td>
-            <td>{{wearing.get_rating_display}}</td>
+            <td>{{wearing.get_mood_display}}</td>
           </tr>
         {% endfor %}
       </tbody>

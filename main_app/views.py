@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Style
+from .models import Style, Accessory
 from .forms import WearingForm
 
 # Create your views here.
@@ -44,5 +44,26 @@ def add_wearing(request, style_id):
         new_wearing.style_id = style_id
         new_wearing.save()
     return redirect('detail', style_id=style_id)
-    
-        
+
+def assoc_accessory(request, style_id, accessory_id):
+    Style.objects.get(id=style_id).accessories.add(accessory_id)
+    return redirect('detail', style_id=style_id)
+
+class AccessoryList(ListView):
+    model = Style
+
+class AccessoryDetail(DetailView):
+    model = Style    
+
+class AccessoryCreate(CreateView):
+    model = Style
+    fields = '__all__'
+    success_url = '/accessories/'
+
+class AccessoryUpdate(UpdateView):
+    model = Style
+    fields = ['title', 'brand', 'color']    
+
+class AccessoryDelete(DeleteView):
+    model = Style
+    success_url = '/accessories/'
