@@ -11,7 +11,9 @@
                 {{ style.title }}
             </span>
             <p>Brand: {{ style.brand }}</p>
+            {% if style.description %}
             <p>Description: {{ style.description }}</p>
+            {% endif %}
             <p>Era: {{ style.era }}</p>
         </div>
     </a>
