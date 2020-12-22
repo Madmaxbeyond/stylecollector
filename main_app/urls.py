@@ -15,5 +15,5 @@ urlpatterns = [
     path('accessories/<int:pk>/', views.AccessoryDetail.as_view(), name='accessories_detail'),
     path('accessories/create/', views.AccessoryCreate.as_view(), name='accessories_create'),
     path('accessories/<int:pk>/update', views.AccessoryUpdate.as_view(), name='accessory_update'),
-    path('accessories/<int:pk>/delete', views.AccessoryDelete.as_view(), name='accessory_delete'),   
+    path('accessories/<int:pk>/delete', views.AccessoryDelete.as_view(), name='accessory_delete'),      
 ]

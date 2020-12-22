@@ -4,7 +4,7 @@
 <h1>Accessories</h1>
 
 {% for accessory in accessories_index %}
-  <a href="{% url 'accessories_detail' accessory.id %}">
+  <a href="{% url 'accessories_detail' object.id %}">
     <div class="card">
         <div class="card-content">
             <span class="card-title">{{ accessory.title }}</span>

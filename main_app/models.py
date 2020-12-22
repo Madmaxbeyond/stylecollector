@@ -9,15 +9,28 @@ MOODS = (
 
 
 # Create your models here.
+class Accessory(models.Model):
+    title = models.CharField(max_length=100)
+    brand = models.CharField(max_length=150)
+    color = models.CharField(max_length=20)  
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('accessories_detail', kwargs={'pk': self.id})   
+
+
 class Style(models.Model):
     title = models.CharField(max_length=100)
     brand = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     era = models.IntegerField()
+    
 
     def __str__(self):
         return self.title
-
+  
 
 class Wearing(models.Model):
     date = models.DateField('Date Worn')
@@ -33,14 +46,3 @@ class Wearing(models.Model):
 
     class Meta:
         ordering = ['-date']
-
-class Accessory(models.Model):
-    title = models.CharField(max_length=100)
-    brand = models.CharField(max_length=150)
-    color = models.CharField(max_length=20)  
-
-    def __str__(self):
-        return self.title
-
-    def get_absolute_url(self):
-        return reverse('accessories_detail', kwargs={'pk': self.id})             

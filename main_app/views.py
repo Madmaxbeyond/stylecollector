@@ -4,6 +4,8 @@ from django.views.generic import ListView, DetailView
 from .models import Style, Accessory
 from .forms import WearingForm
 
+# from .forms import WearingForm
+
 # Create your views here.
 from django.http import HttpResponse
 
@@ -50,20 +52,22 @@ def assoc_accessory(request, style_id, accessory_id):
     return redirect('detail', style_id=style_id)
 
 class AccessoryList(ListView):
-    model = Style
+    model = Accessory
+   
 
 class AccessoryDetail(DetailView):
-    model = Style    
+    model = Accessory    
 
 class AccessoryCreate(CreateView):
-    model = Style
+    model = Accessory
     fields = '__all__'
     success_url = '/accessories/'
 
 class AccessoryUpdate(UpdateView):
-    model = Style
-    fields = ['title', 'brand', 'color']    
+    model = Accessory
+    fields = ['title', 'brand', 'color']
+    success_url = '/accessories/'    
 
 class AccessoryDelete(DeleteView):
-    model = Style
+    model = Accessory
     success_url = '/accessories/'
