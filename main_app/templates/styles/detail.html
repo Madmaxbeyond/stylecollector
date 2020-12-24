@@ -26,6 +26,12 @@
       {{ wearing_form.as_p }}
       <input type="submit" value="Add Wearing" class="btn">
     </form>
+    <br>
+    {% if style.worn_today %}
+      <div class="card-panel pink-text center-align">This is a well-worn item!</div>
+    {% else %}
+      <div class="card-panel red-text center-align">You haven't worn {{ style.title }} in a while...</div>
+    {% endif %}    
     <table class="striped">
       <thead>
         <tr><th>Date</th><th>Mood</th></tr>
