@@ -4,12 +4,23 @@ from django.views.generic import ListView, DetailView
 from .models import Style, Accessory
 from .forms import WearingForm
 
-# from .forms import WearingForm
-
 # Create your views here.
 from django.http import HttpResponse
 
-       
+
+class StyleCreate(CreateView):
+    model = Style
+    fields = ['title', 'brand', 'description', 'era']
+    success_url = '/styles/'
+
+class StyleUpdate(UpdateView):
+    model = Style
+    fields = ['title', 'brand', 'description', 'era']
+    
+
+class StyleDelete(DeleteView):
+    model = Style
+    success_url = '/styles/'       
 
 # Define home view
 def home(request):
@@ -24,20 +35,14 @@ def styles_index(request):
 
 def styles_detail(request, style_id):
     style = Style.objects.get(id=style_id)
-    return render(request, 'styles/detail.html', { 'style': style })
-
-class StyleCreate(CreateView):
-    model = Style
-    fields = '__all__'
-    success_url = '/styles/'
-
-class StyleUpdate(UpdateView):
-    model = Style
-    fields = ['title', 'brand', 'description']
-
-class StyleDelete(DeleteView):
-    model = Style
-    success_url = '/styles/'    
+    # instantiate FeedingForm to be rendered in the template
+    wearing_form = WearingForm()
+    accessories_style_doesnt_have = Accessory.objects.exclude(id__in=style.accessories.all().values_list('id'))
+    return render(request, 'styles/detail.html', {
+        # pass the style and wearing_form as context
+        'style': style, 'wearing_form': wearing_form,
+        'accessories': accessories_style_doesnt_have 
+    }) 
 
 def add_wearing(request, style_id):
     form = WearingForm(request.POST)
@@ -51,10 +56,13 @@ def assoc_accessory(request, style_id, accessory_id):
     Style.objects.get(id=style_id).accessories.add(accessory_id)
     return redirect('detail', style_id=style_id)
 
+def unassoc_accessory(request, style_id, accessory_id):
+    Style.objects.get(id=style_id).accessories.remove(accessory_id)
+    return redirect('detail', style_id=style_id)    
+
 class AccessoryList(ListView):
     model = Accessory
    
-
 class AccessoryDetail(DetailView):
     model = Accessory    
 
@@ -66,7 +74,7 @@ class AccessoryCreate(CreateView):
 class AccessoryUpdate(UpdateView):
     model = Accessory
     fields = ['title', 'brand', 'color']
-    success_url = '/accessories/'    
+        
 
 class AccessoryDelete(DeleteView):
     model = Accessory

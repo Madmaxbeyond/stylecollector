@@ -3,7 +3,8 @@
 
 <h1>Accessories</h1>
 
-{% for accessory in accessories_index %}
+
+{% for accessory in accessory_list %}
   <a href="{% url 'accessories_detail' accessory.id %}">
     <div class="card">
         <div class="card-content">
