@@ -1,0 +1,1 @@
+web: gunicorn stylecollector.wsgi
