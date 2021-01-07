@@ -29,6 +29,7 @@ class Style(models.Model):
     description = models.TextField(max_length=250)
     era = models.IntegerField()
     accessories = models.ManyToManyField(Accessory)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.title

@@ -19,6 +19,10 @@ class StyleCreate(LoginRequiredMixin, CreateView):
     fields = ['title', 'brand', 'description', 'era']
     success_url = '/styles/'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 class StyleUpdate(LoginRequiredMixin, UpdateView):
     model = Style
     fields = ['title', 'brand', 'description', 'era']
@@ -37,7 +41,7 @@ def about(request):
 
 @login_required
 def styles_index(request):
-    styles = Style.objects.all()
+    styles = Style.objects.filter(user=request.user)
     return render(request, 'styles/index.html', { 'styles': styles })
 
 @login_required

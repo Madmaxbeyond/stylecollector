@@ -26,10 +26,10 @@
           <li><a href="{% url 'accessories_create' %}">Add Accessory</a></li>
           <li><a href="{% url 'accessories_index' %}">See All My Accessories</a></li>
           <li><a href="{% url 'index' %}">See All My Clothing</a></li>
-          <li><a href="{% url 'logout' %}">See All My Clothing</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
           <li><a href="{% url 'signup' %}">See All My Clothing</a></li>
-          <li><a href="{% url 'login' %}">See All My Clothing</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
           {% endif %}
         </ul>
       </div>
