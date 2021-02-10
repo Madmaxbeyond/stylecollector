@@ -86,6 +86,10 @@ class AccessoryCreate(LoginRequiredMixin, CreateView):
     fields = '__all__'
     success_url = '/accessories/'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 class AccessoryUpdate(LoginRequiredMixin, UpdateView):
     model = Accessory
     fields = ['title', 'brand', 'color']
